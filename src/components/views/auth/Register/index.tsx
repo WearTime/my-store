@@ -64,8 +64,8 @@ const RegisterView = () => {
             <label htmlFor="phone">Phone</label>
             <input
               type="text"
-              name="password"
-              id="password"
+              name="phone"
+              id="phone"
               className={styles.register__form__item__input}
             />
           </div>
