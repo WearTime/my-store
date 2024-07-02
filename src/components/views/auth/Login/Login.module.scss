@@ -1,54 +1,22 @@
 .login {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  &__error {
-    color: #fd3131;
-    margin-bottom: 10px;
+  &__button {
+    width: 100%;
   }
-  &__title {
-    font-size: 32px;
-    margin-bottom: 10px;
+  &__devider {
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
-  &__form {
-    width: 30%;
-    padding: 20px;
-    box-shadow: 0 0 3px rgba($color: #000000, $alpha: 0.5);
-    margin-bottom: 30px;
+  &__other {
+    width: 100%;
     &__button {
       width: 100%;
-    }
-    &__devider {
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
-    &__other {
-      width: 100%;
-      &__button {
-        padding: 10px;
-        background-color: #000;
-        margin-top: 5px;
-        border: none;
-        width: 100%;
-        outline: none;
-        color: #fff;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 5px;
-        i {
-          font-size: 20px;
-        }
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      i {
+        font-size: 20px;
       }
-    }
-  }
-  &__link {
-    a {
-      color: #23bebe;
     }
   }
 }
