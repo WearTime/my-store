@@ -7,10 +7,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 10px;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .primary {
   background-color: #000;
   color: #fff;
+}
+
+.secondary {
+  background-color: #fff;
+  color: #000;
 }
