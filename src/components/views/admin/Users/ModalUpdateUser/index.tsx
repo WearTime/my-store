@@ -3,6 +3,7 @@ import Modal from "@/components/ui/Modal";
 import Select from "@/components/ui/Select";
 import Input from "@/components/ui/input";
 import userServices from "@/services/user";
+import { useSession } from "next-auth/react";
 import { FormEvent, useState } from "react";
 
 const modalUpdateUser = ({
@@ -12,6 +13,9 @@ const modalUpdateUser = ({
 }: any) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isLoading, setIsLoading] = useState(false);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const session: any = useSession();
+
   const handleUpdateUser = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
@@ -20,8 +24,11 @@ const modalUpdateUser = ({
       role: form.role?.value,
     };
 
-    const result = await userServices.updateUser(updatedUser.id, data);
-    console.log(result);
+    const result = await userServices.updateUser(
+      updatedUser.id,
+      data,
+      session.data?.accessToken
+    );
 
     if (result.status === 200) {
       form.reset();
