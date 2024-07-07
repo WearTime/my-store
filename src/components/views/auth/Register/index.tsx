@@ -1,20 +1,22 @@
 import Link from "next/link";
 import styles from "./Register.module.scss";
 import { useRouter } from "next/router";
-import { FormEvent, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import Input from "@/components/ui/input";
 import Button from "@/components/ui/Button";
 import AuthServices from "@/services/auth";
 import AuthLayout from "@/components/layouts/AuthLayout";
 
-const RegisterView = () => {
+const RegisterView = ({
+  setToaster,
+}: {
+  setToaster: Dispatch<SetStateAction<{}>>;
+}) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const { push } = useRouter();
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    setError("");
     const form = event.target as HTMLFormElement;
     const data = {
       email: form.email?.value,
@@ -23,23 +25,38 @@ const RegisterView = () => {
       password: form.password?.value,
     };
 
-    const result = await AuthServices.registerAccount(data);
+    try {
+      const result = await AuthServices.registerAccount(data);
 
-    if (result.status === 200) {
-      form.reset();
+      if (result.status === 200) {
+        form.reset();
+        setIsLoading(false);
+        push("/auth/login");
+        setToaster({
+          variant: "success",
+          message: "Register Success",
+        });
+      } else {
+        setIsLoading(false);
+        setToaster({
+          variant: "danger",
+          message: "Register Failed, please try again",
+        });
+      }
+    } catch (error) {
       setIsLoading(false);
-      push("/auth/login");
-    } else {
-      setIsLoading(false);
-      setError("Emaill Is Already registered");
+      setToaster({
+        variant: "danger",
+        message: "Emaill Is Already registered",
+      });
     }
   };
   return (
     <AuthLayout
       title="Register"
-      error={error}
       link="/auth/login"
       linkText={"Have an Account? Sign in"}
+      setToaster={setToaster}
     >
       <form onSubmit={handleSubmit}>
         <Input label="Fullname" type="text" name="fullname" />
