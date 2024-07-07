@@ -85,6 +85,7 @@ const UsersAdminView = ({ users, setToaster }: PropsTypes) => {
           setDeletedUser={setDeletedUser}
           setUsersData={setUsersData}
           setToaster={setToaster}
+          session={session}
         />
       )}
     </>
