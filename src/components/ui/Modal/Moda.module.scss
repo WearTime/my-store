@@ -14,5 +14,10 @@
     width: 50vw;
     max-height: 80vh;
     border-radius: 8px;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
