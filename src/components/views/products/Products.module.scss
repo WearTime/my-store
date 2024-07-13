@@ -1,0 +1,42 @@
+.product {
+  padding: 100px 2.5vw 100px;
+  &__title {
+    font-size: 24px;
+    font-weight: 500;
+  }
+  &__main {
+    display: flex;
+    gap: 60px;
+    &__filter {
+      width: 15%;
+      &__data {
+        padding: 20px 0;
+        border-bottom: 1px solid #000;
+        &__title {
+          font-size: 18px;
+          font-weight: 600;
+        }
+        &__list {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+          margin-top: 10px;
+          &__item {
+            &__label {
+              cursor: pointer;
+              font-size: 16px;
+              margin-left: 5px;
+            }
+          }
+        }
+      }
+    }
+    &__content {
+      width: 100%;
+      display: grid;
+      gap: 20px;
+      row-gap: 60px;
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}

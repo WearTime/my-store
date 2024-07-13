@@ -59,10 +59,30 @@ const RegisterView = ({
       setToaster={setToaster}
     >
       <form onSubmit={handleSubmit}>
-        <Input label="Fullname" type="text" name="fullname" />
-        <Input label="Email" type="email" name="email" />
-        <Input label="Phone" type="phone" name="phone" />
-        <Input label="Password" type="password" name="password" />
+        <Input
+          className={styles.register__input}
+          label="Fullname"
+          type="text"
+          name="fullname"
+        />
+        <Input
+          className={styles.register__input}
+          label="Email"
+          type="email"
+          name="email"
+        />
+        <Input
+          className={styles.register__input}
+          label="Phone"
+          type="phone"
+          name="phone"
+        />
+        <Input
+          className={styles.register__input}
+          label="Password"
+          type="password"
+          name="password"
+        />
         <Button type="submit" className={styles.register__button}>
           {isLoading ? "Loading..." : "Register"}
         </Button>

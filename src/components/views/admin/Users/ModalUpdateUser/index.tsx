@@ -4,15 +4,14 @@ import Select from "@/components/ui/Select";
 import Input from "@/components/ui/input";
 import userServices from "@/services/user";
 import { User } from "@/types/user.type";
-import { useSession } from "next-auth/react";
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import styles from "./ModalUpdateUser.module.scss";
 
 type PropTypes = {
   updatedUser: User | any;
   setUpdatedUser: Dispatch<SetStateAction<{}>>;
   setUsersData: Dispatch<SetStateAction<User[]>>;
   setToaster: Dispatch<SetStateAction<{}>>;
-  session: any;
 };
 
 const modalUpdateUser = ({
@@ -20,11 +19,9 @@ const modalUpdateUser = ({
   setUpdatedUser,
   setUsersData,
   setToaster,
-  session,
 }: PropTypes) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isLoading, setIsLoading] = useState(false);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
 
   const handleUpdateUser = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -34,11 +31,7 @@ const modalUpdateUser = ({
       role: form.role?.value,
     };
 
-    const result = await userServices.updateUser(
-      updatedUser.id,
-      data,
-      session.data?.accessToken
-    );
+    const result = await userServices.updateUser(updatedUser.id, data);
 
     if (result.status === 200) {
       form.reset();
@@ -61,13 +54,14 @@ const modalUpdateUser = ({
   return (
     <Modal onClose={() => setUpdatedUser({})}>
       <h1>Update User</h1>
-      <form onSubmit={handleUpdateUser}>
+      <form onSubmit={handleUpdateUser} className={styles.form}>
         <Input
           label="Fullname"
           type="text"
           name="fullname"
           defaultValue={updatedUser.fullname}
           disabled
+          className={styles.form__input}
         />
         <Input
           label="Email"
@@ -75,6 +69,7 @@ const modalUpdateUser = ({
           name="email"
           defaultValue={updatedUser.email}
           disabled
+          className={styles.form__input}
         />
         <Input
           label="Phone"
@@ -82,6 +77,7 @@ const modalUpdateUser = ({
           name="phone"
           defaultValue={updatedUser.phone}
           disabled
+          className={styles.form__input}
         />
         <Select
           label="Role"
@@ -91,6 +87,7 @@ const modalUpdateUser = ({
             { label: "Member", value: "member" },
             { label: "Admin", value: "admin" },
           ]}
+          className={styles.form__input}
         />
         <Button type="submit">{isLoading ? "Updating..." : "Update"}</Button>
       </form>

@@ -1,16 +1,22 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  margin: 20px 0;
-  &__select {
-    padding: 10px;
+.select {
+  &__label {
+    margin-top: 5px;
+  }
+  &__container {
+    display: flex;
+    flex-direction: column;
     background-color: #eee;
-    margin-top: 10px;
-    border: none;
-    outline: none;
     border-radius: 8px;
-    &:disabled {
-      opacity: 0.7;
+    margin-top: 5px;
+    padding-right: 15px;
+    &__select {
+      padding: 10px;
+      border: none;
+      outline: none;
+      background-color: transparent;
+      &:disabled {
+        opacity: 0.7;
+      }
     }
   }
 }

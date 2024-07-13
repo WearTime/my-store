@@ -26,7 +26,6 @@ const ModalUpdateProduct = ({
   const [isLoading, setIsLoading] = useState(false);
   const [stockCount, setStockCount] = useState(updatedProduct.stock);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
-  const session: any = useSession();
 
   const handleStock = (e: any, type: string, i: number) => {
     const newStockCount: any = [...stockCount];
@@ -38,19 +37,22 @@ const ModalUpdateProduct = ({
     form: any,
     newImageURL: string = updatedProduct.image
   ) => {
+    const stock = stockCount.map((stock: { size: string; qty: number }) => {
+      return {
+        size: stock.size,
+        qty: parseInt(`${stock.qty}`),
+      };
+    });
     const data = {
       name: form.name.value,
-      price: form.price.value,
+      price: parseInt(form.price.value),
+      description: form.description.value,
       category: form.category.value,
       status: form.status.value,
-      stock: stockCount,
+      stock: stock,
       image: newImageURL ?? updatedProduct.image,
     };
-    const result = await productServices.updateProduct(
-      updatedProduct.id,
-      data,
-      session.data?.accessToken
-    );
+    const result = await productServices.updateProduct(updatedProduct.id, data);
 
     if (result.status == 200) {
       setIsLoading(false);
@@ -113,6 +115,7 @@ const ModalUpdateProduct = ({
           name="name"
           placeholder="Insert Product Name"
           defaultValue={updatedProduct.name}
+          className={styles.form__input}
         />
         <Input
           label="Price"
@@ -120,6 +123,15 @@ const ModalUpdateProduct = ({
           name="price"
           placeholder="Insert Product Price"
           defaultValue={updatedProduct.price}
+          className={styles.form__input}
+        />
+        <Input
+          label="Description"
+          type="text"
+          name="description"
+          placeholder="Insert Product Description"
+          defaultValue={updatedProduct.description}
+          className={styles.form__input}
         />
         <Select
           label="Category"
@@ -129,6 +141,7 @@ const ModalUpdateProduct = ({
             { label: "Men", value: "men" },
             { label: "Women", value: "women" },
           ]}
+          className={styles.form__input}
         />
         <Select
           label="Status"
@@ -138,6 +151,7 @@ const ModalUpdateProduct = ({
             { label: "Released", value: "true" },
             { label: "Not Released", value: "false" },
           ]}
+          className={styles.form__input}
         />
         <label htmlFor="image">Image</label>
         <div className={styles.form__image}>
@@ -169,6 +183,7 @@ const ModalUpdateProduct = ({
                 placeholder="Insert Product Size"
                 onChange={(e) => handleStock(e, "size", i)}
                 defaultValue={item.size}
+                className={styles.form__input}
               />
             </div>
             <div className={styles.form__stock__item}>
@@ -179,6 +194,7 @@ const ModalUpdateProduct = ({
                 placeholder="Insert Product Quantity"
                 defaultValue={item.qty}
                 onChange={(e) => handleStock(e, "qty", i)}
+                className={styles.form__input}
               />
             </div>
           </div>
